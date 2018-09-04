@@ -20,7 +20,9 @@
         <script href="{{ asset('js/jQuery_3.3.1.js') }}" type="text/javascript"></script>
     </head>
     <body>
-        <div class="jumbotron"></div>
+        <div class="jumbotron">
+          {% block head %}{% endblock %}  
+        </div>
         {% include 'nav.html.twig' %}
         {% block content %}{% endblock %}
     </body>

@@ -1,9 +1,5 @@
-#connect {
-	text-align: center;
-}
-.index {
-	display: block;
-	margin: auto;
+.container-fluid{
+	margin: 10em;
 }
 div {
 	margin: auto;
@@ -13,4 +9,8 @@ div.jumbotron {
 }
 .form-inline {
 	width: 100%;
+}
+
+h1 {
+	text-align: center;
 }
