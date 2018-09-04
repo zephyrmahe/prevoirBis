@@ -1,0 +1,5 @@
+/vendor/
+
+composer\.phar
+
+web/js/jQuery_3\.3\.1\.js

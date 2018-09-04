@@ -1,0 +1,20 @@
+#connect {
+	text-align: center;
+}
+.index {
+	display: block;
+	margin: auto;
+}
+div {
+	margin: auto;
+}
+div.jumbotron {
+	margin: 0 0 0 0;
+}
+.btn-dark {
+margin-right: 1%;
+margin-left: 1%;
+}
+.form-inline {
+	width: 100%;
+}
