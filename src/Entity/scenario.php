@@ -24,6 +24,13 @@ class Scenario
      */
     private $buyName;
 
+    /**
+     * Scenario linked to this Reponse
+     *
+     * @OneToMany(targetEntity="Entity\Reponse", mappedBy="scenario")
+     */
+    private $reponse; 
+
      	public function getId()
     {
         return $this->id;
@@ -34,7 +41,7 @@ class Scenario
         return $this->buyFirstName;
     }
 
-    public function setbuyFirstName($buyFirstName)
+    public function setBuyFirstName($buyFirstName)
     {
         $this->buyFirstName = $buyFirstName;
     }
@@ -44,8 +51,19 @@ class Scenario
     	return $this->buyName;
     }
 
-    public function setbuyName($buyName)
+    public function setBuyName($buyName)
     {
         $this->buyName = $buyName;
     }
+
+    public function getReponse()
+    {
+        return $this->reponse;
+    }
+
+    public function setReponse($reponse)
+    {
+        $this->reponse = $reponse;
+    }
+
 }

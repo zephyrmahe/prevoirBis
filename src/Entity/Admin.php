@@ -2,10 +2,10 @@
 namespace Entity;
 /**
  * @Entity 
- * @Table(name="User")
+ * @Table(name="Admin")
  **/
 
-class User
+class Admin
 {
     /**
      * @Id ()
@@ -30,12 +30,13 @@ class User
     private $password;
 
     /**
-     * User linked to this Session
+     * Admin linked to this Session
      *
-     * @ManyToOne(targetEntity="Entity\Session", inversedBy="user")
+     * @ManyToMany(targetEntity="Entity\Session", mappedBy="admin")
      */
-    private $session;
+    private $session; 
  	
+
  	public function getId()
     {
         return $this->id;
@@ -69,7 +70,7 @@ class User
     public function setPassword($password)
     {
         $this->password = $password;
-    }    
+    }
 
     public function getSession()
     {

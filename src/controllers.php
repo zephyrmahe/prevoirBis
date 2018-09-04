@@ -70,6 +70,13 @@ $app->get('/scenario', function () use ($app) {
 ->bind('scenario')
 ;
 
+// gerer les sous admin-------------------------------------------------------------------------------------
+$app->get('/gestionSousAdmin', function () use ($app) {
+    return $app['twig']->render('sousAdminGest.html.twig', array());
+})
+->bind('SousAdmin')
+;
+
 $app->error(function (\Exception $e, Request $request, $code) use ($app) {
     if ($app['debug']) {
         return;
