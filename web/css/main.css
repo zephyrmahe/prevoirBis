@@ -1,5 +1,8 @@
-.container-fluid{
-	margin: 10em;
+html, div {
+	background-color: #e9ecef;
+}
+.index{
+	padding: 10em;
 }
 div {
 	margin: auto;
@@ -13,4 +16,13 @@ div.jumbotron {
 
 h1 {
 	text-align: center;
+}
+
+.valid {
+	width: 100%;
+}
+
+.listeMail {
+	border: solid black 3px;
+	margin-top: 4em;
 }

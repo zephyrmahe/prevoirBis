@@ -35,6 +35,13 @@ class User
      * @ManyToOne(targetEntity="Entity\Session", inversedBy="user")
      */
     private $session;
+
+    /**
+     * User linked to this Mail
+     *
+     * @OneToMany(targetEntity="Entity\Mail", mappedBy="user")
+     */
+    private $mail; 
  	
  	public function getId()
     {
@@ -79,5 +86,16 @@ class User
     public function setSession($session)
     {
         $this->session = $session;
+    }
+
+    
+    public function getMail()
+    {
+        return $this->mail;
+    }
+
+    public function setMail($mail)
+    {
+        $this->mail = $mail;
     }
 }

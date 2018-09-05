@@ -26,6 +26,13 @@ class Reponse
      */
     private $scenario;
 
+    /**
+     * Reponse linked to this Mail
+     *
+     * @OneToMany(targetEntity="Entity\Mail", mappedBy="reponse")
+     */
+    private $mail;
+
  	public function getId()
     {
         return $this->id;
@@ -49,5 +56,15 @@ class Reponse
     public function setScenario($scenario)
     {
         $this->scenario = $scenario;
+    }
+
+    public function getMail()
+    {
+        return $this->mail;
+    }
+
+    public function setMail($mail)
+    {
+        $this->mail = $mail;
     }
 }

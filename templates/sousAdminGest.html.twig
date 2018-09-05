@@ -5,5 +5,21 @@
 {% endblock %} 
 
 {% block content %}
-gestion sous admin
+  <div class="container-fluid index">
+    <div class="row">
+      <div class="col-lg-4 col-md-2 col-0">
+      </div>
+      <div class="col-lg-4 col-md-8 col-12">
+       <form method="post">
+          <div class="form-group">
+            <input type="text" class="form-control" name="admin" placeholder="Nom du sous admin">
+          </div>
+          <button class="btn btn-dark valid" type="submit" name="button">
+              <i class="fa fa-paper-plane-o" aria-hidden="true"></i> Valider
+          </button>
+        </form>
+      </div>
+      <div class="col-lg-4 col-md-2 col-0"></div>
+    </div>
+  </div>
 {% endblock %}
