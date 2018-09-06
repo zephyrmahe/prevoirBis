@@ -13,6 +13,24 @@ $app->register(new ServiceControllerServiceProvider());
 $app->register(new AssetServiceProvider());
 $app->register(new TwigServiceProvider());
 $app->register(new HttpFragmentServiceProvider());
+$app->register(new Silex\Provider\SessionServiceProvider());
+
+if (null !== $app['session']->get('user')) {
+	$app['global.userName'] = $app['session']->get('user')['name'];
+}
+else{
+	$app['global.userName'] = '';
+}
+$app['twig'] = $app->extend('twig', function ($twig, $app) {
+    $twig->addGlobal('userName', $app['global.userName']);
+    return $twig;
+});
+
+$app['twig'] = $app->extend('twig', function ($twig, $app) {
+    // add custom globals, filters, tags, ...
+
+    return $twig;
+});
 
 //Debut attribution doctrine orm (EntityManager) dans $app['em']
 $isDevMode = true;
@@ -26,11 +44,5 @@ $conn = array(
 );
 $app['em'] = EntityManager::create($conn, $config);
 //Fin attribution doctrine orm (EntityManager) dans $app['em']
-
-$app['twig'] = $app->extend('twig', function ($twig, $app) {
-    // add custom globals, filters, tags, ...
-
-    return $twig;
-});
 
 return $app;
