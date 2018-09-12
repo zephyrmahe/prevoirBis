@@ -35,11 +35,11 @@ class Mail
     private $scenario;
 
     /**
-     * Mail linked to this User
+     * Mail linked to this Admin
      *
-     * @ManyToOne(targetEntity="Entity\User", inversedBy="Mail")
+     * @ManyToOne(targetEntity="Entity\Admin", inversedBy="Mail")
      */
-    private $user;
+    private $admin;
 
      	public function getId()
     {
@@ -76,14 +76,14 @@ class Mail
         $this->scenario = $scenario;
     }
 
-    public function getUser()
+    public function getAdmin()
     {
-        return $this->user;
+        return $this->admin;
     }
 
-    public function setUser($user)
+    public function setAdmin($admin)
     {
-        $this->user = $user;
+        $this->admin = $admin;
     }
 
 }

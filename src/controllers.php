@@ -7,6 +7,9 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Doctrine\ORM\Query\Expr\Join;
 
+$app['access'] = $app['session']->get('user')['access'];
+$app['id'] = $app['session']->get('user')['id'];
+
 //Request::setTrustedProxies(array('127.0.0.1'));
 // accueil et connexion------------------------------------------------------------------------------------
 $app->get('/', function (Request $request) use ($app) {
@@ -17,7 +20,7 @@ $app->get('/', function (Request $request) use ($app) {
     $username = $request->get('user');
     $mdp = $request->get('password');
 
-    //Cherche dans la base de données si le user existe
+    //Cherche dans la base de données si le name existe
     $repository = $app['em']->getRepository(Entity\Admin::class);
     $query = $repository->findOneBy(['name' => $username]);   
 
@@ -25,74 +28,108 @@ $app->get('/', function (Request $request) use ($app) {
     if ($query != null && password_verify($mdp, $query->getPassword())) {
 
       //Si toute les conditions sont remplies, on stock dans le cookie de session les données requis
-      $app['session']->set(array('user', 'name' => $query->getName(), 
+      $app['session']->set('user', array('name' => $query->getName(), 
         'access' => $query->getAccess(),
         'id' => $query->getId()
       ));
-
- $app['global.username'] = $app['session']->get('user')['name'];
-   return $app['twig']->render('mail.html.twig',array());
+      $app['access'] = $app['session']->get('user')['access'];
+      $app['id'] = $app['session']->get('user')['id'];
+      $app['global.userName'] = $app['session']->get('user')['name'];
+   return $app['twig']->render('index.html.twig',array('access' => $app['access'],
+    'id' => $app['id']
+  ));
     }
   }
-  return $app['twig']->render('index.html.twig',array());
+  return $app['twig']->render('index.html.twig',array('access' => $app['access'],
+    'id' => $app['id']
+  ));
 
 })
 ->bind('homepage')
 ->method('GET|POST')
 ;
 
+//Page de déconnexion
+//----------------------------------------------------------------------------------------------------------
+$app->get('/logout', function (Request $request) use ($app) { 
+  //Vide la séssion actuel
+  $app['session']->clear();
+  return $app->redirect('/');
+})
+->bind('logout')
+;
+
+
 // page e-mail----------------------------------------------------------------------------------------------
 $app->get('/email', function () use ($app) {
-    return $app['twig']->render('mail.html.twig', array());
+    return $app['twig']->render('mail.html.twig', array('access' => $app['access'],
+      'id' => $app['id']
+    ));
 })
 ->bind('mail')
 ;
 
 // visuel client--------------------------------------------------------------------------------------------
 $app->get('/visuelclient', function () use ($app) {
-    return $app['twig']->render('visuelClient.html.twig', array());
+    return $app['twig']->render('visuelClient.html.twig', array('access' => $app['access'],
+      'id' => $app['id']
+    ));
 })
 ->bind('visuelClient')
 ;
 
 // modif mot de passe---------------------------------------------------------------------------------------
 $app->get('/modifMDP', function () use ($app) {
-    return $app['twig']->render('modifMDP.html.twig', array());
+
+    return $app['twig']->render('modifMDP.html.twig', array('access' => $app['access'],
+      'id' => $app['id']
+    ));
 })
 ->bind('modifMDP')
+
 ;
 
 // page creer session---------------------------------------------------------------------------------------
 $app->get('/sessionCreate', function () use ($app) {
-    return $app['twig']->render('sessionCreate.html.twig', array());
+    return $app['twig']->render('sessionCreate.html.twig', array('access' => $app['access'],
+      'id' => $app['id']
+    ));
 })
 ->bind('sessionCreate')
 ;
 
 // page historique des session------------------------------------------------------------------------------
 $app->get('/historique', function () use ($app) {
-    return $app['twig']->render('historique.html.twig', array());
+    return $app['twig']->render('historique.html.twig', array('access' => $app['access'],
+      'id' => $app['id']
+    ));
 })
 ->bind('historique')
 ;
 
 // page finir session---------------------------------------------------------------------------------------
 $app->get('/sessionFinish', function () use ($app) {
-    return $app['twig']->render('sessionFinish.html.twig', array());
+    return $app['twig']->render('sessionFinish.html.twig', array('access' => $app['access'],
+      'id' => $app['id']
+    ));
 })
 ->bind('sessionFinish')
 ;
 
 // modification de la session-------------------------------------------------------------------------------
 $app->get('/sessionModif', function () use ($app) {
-    return $app['twig']->render('modifSession.html.twig', array());
+    return $app['twig']->render('modifSession.html.twig', array('access' => $app['access'],
+      'id' => $app['id']
+    ));
 })
 ->bind('modifSession')
 ;
 
 // creer et modifier un scenario----------------------------------------------------------------------------
 $app->get('/scenario', function () use ($app) {
-    return $app['twig']->render('scenario.html.twig', array());
+    return $app['twig']->render('scenario.html.twig', array('access' => $app['access'],
+      'id' => $app['id']
+    ));
 })
 ->bind('scenario')
 ;
@@ -124,7 +161,7 @@ $app->get('/gestionSousAdmin', function () use ($app) {
       $mdp = 'password';
       $hash_mdp = password_hash($mdp, PASSWORD_DEFAULT);
       $admin->setPassword($hash_mdp);
-      $admin->setAccess(1);
+      $admin->setAccess(2);
       $app['em']->persist($admin);
       $app['em']->flush();
     }
@@ -134,7 +171,9 @@ $app->get('/gestionSousAdmin', function () use ($app) {
       $dataInscription = ['errors' => $errors];
     }
   }
-    return $app['twig']->render('sousAdminGest.html.twig', array());
+    return $app['twig']->render('sousAdminGest.html.twig', array('access' => $app['access'],
+      'id' => $app['id']
+  ));
 })
 ->bind('SousAdmin')
 ->method('GET|POST')

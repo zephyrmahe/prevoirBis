@@ -3,8 +3,8 @@
     <head>
         <title>{% block title '' %}Pévoir Bis</title>
         <meta charset="utf-8">
-        <link href="{{ asset('css/main.css') }}" rel="stylesheet" type="text/css" />
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <link href="{{ asset('css/main.css') }}" rel="stylesheet" type="text/css" />
 
         <script type="text/javascript">
             var _gaq = _gaq || [];
@@ -17,13 +17,14 @@
                 var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
             })();
         </script>
-        <script href="{{ asset('js/jQuery_3.3.1.js') }}" type="text/javascript"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        {% block js %}{% endblock %}
     </head>
     <body>
         <div class="jumbotron">
           {% block head %}{% endblock %} 
         </div>
-        {% include 'nav.html.twig' %}
+        {% if userName != '' %} {% include 'nav.html.twig' %} {% endif %}
         {% block content %}{% endblock %}
     </body>
 </html>

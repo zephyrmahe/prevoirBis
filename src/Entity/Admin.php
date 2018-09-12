@@ -30,11 +30,11 @@ class Admin
     private $password;
 
     /**
-     * Admin linked to this Session
+     * Admin linked to this Sessionc
      *
-     * @ManyToMany(targetEntity="Entity\Session", mappedBy="admin")
+     * @ManyToMany(targetEntity="Entity\Sessionc", mappedBy="admin")
      */
-    private $session; 
+    private $sessionc; 
  	
 
  	public function getId()
@@ -72,13 +72,13 @@ class Admin
         $this->password = $password;
     }
 
-    public function getSession()
+    public function getSessionc()
     {
-        return $this->session;
+        return $this->sessionc;
     }
 
-    public function setSession($session)
+    public function setSessionc($sessionc)
     {
-        $this->session = $session;
+        $this->sessionc = $sessionc;
     }
 }

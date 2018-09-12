@@ -1,15 +1,24 @@
 
 <nav class="navbar navbar-dark bg-dark">
-	<a class="navbar-brand" href="{{ path('mail') }}" >e-mail</a>
-	<a class="navbar-brand" href="{{ path('visuelClient') }}">visuel de satisfaction</a>
-	<a class="navbar-brand" href="{{ path('sessionCreate') }}">créer une session</a>
-	<a class="navbar-brand" href="{{ path('sessionFinish') }}">terminer une session</a>
-	<a class="navbar-brand" href="{{ path('modifSession') }}">modifier une session</a>
-	<a class="navbar-brand" href="{{ path('historique') }}">historique</a>
-	<a class="navbar-brand" href="{{ path('scenario') }}">scénario</a>
-	<a class="navbar-brand" href="{{ path('SousAdmin') }}">gerer les sous admins</a>
-	<a class="navbar-brand" href="{{ path('modifMDP') }}">Modifier le mot de passe</a>
-  </form>
+	<a class="navbar-brand btn btn-dark" href="{{ path('mail') }}" >e-mail</a>
+	<a class="navbar-brand btn btn-dark" href="{{ path('visuelClient') }}">visuel de satisfaction</a>
+	{% if access == 1 %}
+		<a class="navbar-brand btn btn-dark" href="{{ path('sessionCreate') }}">créer une session</a>
+		<a class="navbar-brand btn btn-dark" href="{{ path('sessionFinish') }}">terminer une session</a>
+		<a class="navbar-brand btn btn-dark" href="{{ path('modifSession') }}">modifier une session</a>
+		<a class="navbar-brand btn btn-dark" href="{{ path('historique') }}">historique</a>
+		<a class="navbar-brand btn btn-dark" href="{{ path('scenario') }}">scénario</a>
+		<a class="navbar-brand btn btn-dark" href="{{ path('SousAdmin') }}">gerer les sous admins</a>
+	{% endif %}
+	{% if access == 2  %}
+		<a class="navbar-brand btn btn-dark" href="{{ path('sessionCreate') }}">créer une session</a>
+		<a class="navbar-brand btn btn-dark" href="{{ path('sessionFinish') }}">terminer une session</a>
+		<a class="navbar-brand btn btn-dark" href="{{ path('modifSession') }}">modifier une session</a>
+		<a class="navbar-brand btn btn-dark" href="{{ path('historique') }}">historique</a>
+		<a class="navbar-brand btn btn-dark" href="{{ path('scenario') }}">scénario</a>
+	{% endif %}
+	<a class="navbar-brand btn btn-dark" href="{{ path('modifMDP') }}">Modifier le mot de passe</a>
+	<a class="navbar-brand btn btn-dark" href="{{ path('logout') }}">deconnexion</a>
 </nav>
 
 
